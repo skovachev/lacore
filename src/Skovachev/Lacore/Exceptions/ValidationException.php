@@ -19,7 +19,7 @@ class ValidationException extends Exception
 
     public function getErrorResponse()
     {
-        $reponse = parent::getErrorResponse();
+        $response = parent::getErrorResponse();
         if (!empty($this->errors))
         {
             $response->withErrors($this->errors);
