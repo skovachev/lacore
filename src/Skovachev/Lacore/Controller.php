@@ -4,6 +4,7 @@ use Str;
 use URL;
 use Auth;
 use View;
+use Request;
 
 abstract class Controller extends \Illuminate\Routing\Controllers\Controller {
 
@@ -55,7 +56,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller {
             $this->data['title'] = $this->title;
 
             // setup page
-            $url_segments = explode('/', str_replace(URL::to(''), '', URL::current()));
+            $url_segments = explode('/', str_replace(Request::root() . '/', '', URL::current()));
             $current_page = array_shift($url_segments);
             $this->data['page'] = empty($current_page) ? 'none' : $current_page;
 
