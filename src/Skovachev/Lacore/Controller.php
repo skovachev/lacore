@@ -1,6 +1,9 @@
 <?php namespace Skovachev\Lacore;
 
 use Str;
+use URL;
+use Auth;
+use View;
 
 abstract class Controller extends \Illuminate\Routing\Controllers\Controller {
 
