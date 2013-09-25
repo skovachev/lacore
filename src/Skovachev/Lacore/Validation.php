@@ -31,4 +31,3 @@ abstract class Validation
         return $this->doValidation($data, empty($this->updateRules) ? $this->rules : $this->updateRules);
     }
 }
-
