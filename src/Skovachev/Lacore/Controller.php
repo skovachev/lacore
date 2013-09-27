@@ -54,6 +54,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller {
             $this->data['meta_keywords'] = null;
             $this->data['meta_description'] = null;
             $this->data['title'] = $this->title;
+            $this->data['module'] = $this->module;
 
             // setup page
             $url_segments = explode('/', str_replace(Request::root() . '/', '', URL::current()));
