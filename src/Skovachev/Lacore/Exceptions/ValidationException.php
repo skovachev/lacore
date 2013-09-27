@@ -26,4 +26,9 @@ class ValidationException extends Exception
         }
         return $response;
     }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 }
