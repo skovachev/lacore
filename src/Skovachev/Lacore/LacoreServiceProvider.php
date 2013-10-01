@@ -35,9 +35,9 @@ class LacoreServiceProvider extends ServiceProvider {
             // If the session is set on the application instance, we'll inject it into
             // the redirector instance. This allows the redirect responses to allow
             // for the quite convenient "with" methods that flash to the session.
-            if (isset($app['session']))
+            if (isset($app['session.store']))
             {
-                $redirector->setSession($app['session']);
+                $redirector->setSession($app['session.store']);
             }
 
             return $redirector;

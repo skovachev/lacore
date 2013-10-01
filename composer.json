@@ -1,7 +1,7 @@
 {
     "name": "skovachev/lacore",
     "description": "A collection of utility classes and extensions for Laravel 4 Apps",
-    "keywords": ["laravel", "utilities"],
+    "keywords": ["laravel", "utilities", "validation", "modules", "db-seeder", "exceptions"],
     "homepage": "http://github.com/skovachev/lacore",
     "license": "DBAD",
     "authors": [
