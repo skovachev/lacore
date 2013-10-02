@@ -1,6 +1,7 @@
 <?php namespace Skovachev\Lacore;
 
 use Validator;
+use Skovachev\Lacore\Validation\ValidationExtensionProvider;
 
 abstract class Validation
 {
@@ -24,6 +25,13 @@ abstract class Validation
     public function validate($data)
     {
         return $this->doValidation($data, $this->rules);
+    }
+
+    public function extendValidation(ValidationExtensionProvider $provider)
+    {
+        $this->rules = array_merge($this->rules, $provider->provideValidationRules());
+        $this->updateRules = array_merge($this->updateRules, $provider->provideValidationRulesForUpdate());
+        $this->messages = array_merge($this->messages, $provider->provideValidationMessages());
     }
 
     public function validateForUpdate($data, $id = null)
