@@ -13,7 +13,7 @@ abstract class Validation
 
     protected $validationErrorMessage = 'Submitted data was invalid';
 
-    private function doValidation($data, $rules)
+    protected function doValidation($data, $rules)
     {
         $validator = Validator::make($data, $rules, $this->messages);
         if ($validator->fails())
