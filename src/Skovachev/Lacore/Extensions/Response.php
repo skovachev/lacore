@@ -1,6 +1,7 @@
 <?php namespace Skovachev\Lacore\Extensions;
 
 use File;
+use App;
 
 class Response extends \Illuminate\Support\Facades\Response
 {
@@ -14,6 +15,11 @@ class Response extends \Illuminate\Support\Facades\Response
      */
     public static function inline($path, $name = null, $lifetime = 0)
     {
+        if (!File::exists($path))
+        {
+            App::abort(404);
+        }
+
         if (is_null($name)) {
             $name = basename($path);
         }
