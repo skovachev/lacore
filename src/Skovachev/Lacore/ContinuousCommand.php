@@ -11,10 +11,8 @@ abstract class ContinuousCommand extends Command {
     {
         parent::__construct();
 
-        $options = array(
-            array('continuous', null, InputOption::VALUE_OPTIONAL, 'Run the command as a continuous cycle', 60),
-        );
-        call_user_func_array(array($this, 'addOption'), $options);
+        $continuousOption = array('continuous', null, InputOption::VALUE_OPTIONAL, 'Run the command as a continuous cycle', 60);
+        call_user_func_array(array($this, 'addOption'), $continuousOption);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
