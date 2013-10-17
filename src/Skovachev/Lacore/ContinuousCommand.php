@@ -7,19 +7,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class ContinuousCommand extends Command {
 
+    const CONTINUOUS_OPTION_NAME = 'continuous';
+
     public function __construct()
     {
         parent::__construct();
 
-        $continuousOption = array('continuous', null, InputOption::VALUE_OPTIONAL, 'Run the command as a continuous cycle', 60);
+        $continuousOption = array(self::CONTINUOUS_OPTION_NAME, null, InputOption::VALUE_OPTIONAL, 'Run the command as a continuous cycle', 60);
         call_user_func_array(array($this, 'addOption'), $continuousOption);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $continuous = $this->option('continuous');
-        if (!is_null($continuous))
+        if ($this->input->hasOption(self::CONTINUOUS_OPTION_NAME))
         {
+            $continuous = $this->option(self::CONTINUOUS_OPTION_NAME);
             while (true)
             {
                 $this->fire();
