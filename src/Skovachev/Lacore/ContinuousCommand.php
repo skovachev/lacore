@@ -7,25 +7,31 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class ContinuousCommand extends Command {
 
-    const CONTINUOUS_OPTION_NAME = 'continuous';
+    const WAIT_TIME_OPTION_NAME = 'wait';
+    const RUN_ONCE_OPTION_NAME = 'once';
 
     public function __construct()
     {
         parent::__construct();
 
-        $continuousOption = array(self::CONTINUOUS_OPTION_NAME, null, InputOption::VALUE_OPTIONAL, 'Run the command as a continuous cycle', 60);
-        call_user_func_array(array($this, 'addOption'), $continuousOption);
+        $options = array(
+            array(self::WAIT_TIME_OPTION_NAME, 'w', InputOption::VALUE_OPTIONAL, 'Wait time between runs in seconds', 60),
+            array(self::RUN_ONCE_OPTION_NAME, null, InputOption::VALUE_NONE, 'Run once flag')
+        );
+
+        foreach ($options as $option) {
+            call_user_func_array(array($this, 'addOption'), $option);
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($this->input->hasOption(self::CONTINUOUS_OPTION_NAME))
+        if (!$this->option('once'))
         {
-            $continuous = $this->option(self::CONTINUOUS_OPTION_NAME);
             while (true)
             {
                 $this->fire();
-                sleep($continuous);
+                sleep($this->option(self::WAIT_TIME_OPTION_NAME));
             }
         }
         else
