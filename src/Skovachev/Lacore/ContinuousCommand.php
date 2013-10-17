@@ -1,4 +1,4 @@
-<?php namespace Youtubedl\Commands;
+<?php namespace Skovachev\Lacore;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
