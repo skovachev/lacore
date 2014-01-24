@@ -22,7 +22,7 @@ class LacoreServiceProvider extends ServiceProvider {
         });
 
         Blade::extend(function ($view) {
-            $html = "if (Session::has('message')){<div id='message' class='alert <?php echo Session::has('message-status') ? 'alert-' . Session::get('message-status') : ''; ?>''><?php echo Session::get('message'); ?></div>}";
+            $html = "<?php if (Session::has('message')){ ?><div id='message' class='alert <?php echo Session::has('message-status') ? 'alert-' . Session::get('message-status') : ''; ?>''><?php echo Session::get('message'); ?></div><?php } ?>";
             return str_replace("@message", $html, $view);
         });
 	}
