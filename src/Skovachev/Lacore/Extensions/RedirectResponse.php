@@ -6,13 +6,13 @@ class RedirectResponse extends \Illuminate\Http\RedirectResponse
 {
     public function withErrorMessage($message)
     {
-        $this->with('message', $message)->with('message-status', Config::get('error_status'));
+        $this->with('message', $message)->with('message-status', Config::get('lacore::error_status'));
         return $this;
     }
 
     public function withSuccessMessage($message)
     {
-        $this->with('message', $message)->with('message-status', Config::get('success_status'));
+        $this->with('message', $message)->with('message-status', Config::get('lacore::success_status'));
         return $this;
     }
 

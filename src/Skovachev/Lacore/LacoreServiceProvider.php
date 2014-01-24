@@ -16,13 +16,15 @@ class LacoreServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
+        $this->package('skovachev/lacore');
+
 		Validator::resolver(function($translator, $data, $rules, $messages)
         {
             return new \Skovachev\Lacore\Extensions\Validator($translator, $data, $rules, $messages);
         });
-
+        
         Blade::extend(function ($view) {
-            $html = "<?php if (Session::has('message')){ ?><div id='message' class='alert <?php echo Session::has('message-status') ? 'alert-' . Session::get('message-status') : ''; ?>''><?php echo Session::get('message'); ?></div><?php } ?>";
+            $html = "<div id='message' class='alert <?php echo (Session::has('message-status') ? 'alert-' . Session::get('message-status') : ''); ?>'><?php echo Session::get('message'); ?></div>";
             return str_replace("@message", $html, $view);
         });
 	}
