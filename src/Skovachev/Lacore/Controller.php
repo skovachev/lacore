@@ -65,12 +65,19 @@ abstract class Controller extends \Illuminate\Routing\Controller {
         }
     }
 
-    /**
-     * Overrides method in Controller
-     */
-    protected function processResponse($router, $method, $response)
+    public function callAction($method, $parameters)
     {
-        $request = $router->getRequest();
+        $this->setupLayout();
+
+        $response = call_user_func_array(array($this, $method), $parameters);
+
+        // If no response is returned from the controller action and a layout is being
+        // used we will assume we want to just return the layout view as any nested
+        // views were probably bound on this view during this controller actions.
+        if (is_null($response) and ! is_null($this->layout))
+        {
+            $response = $this->layout;
+        }
 
         if (! is_null($this->view))
         {
@@ -81,13 +88,6 @@ abstract class Controller extends \Illuminate\Routing\Controller {
             $response->content = View::make($this->view)->with($this->data);
             $response->with($this->data);
         }
-
-        // The after filters give the developers one last chance to do any last minute
-        // processing on the response. The response has already been converted to a
-        // full Response object and will also be handed off to the after filters.
-        $response = $router->prepare($response, $request);
-
-        $this->callAfterFilters($router, $method, $response);
 
         return $response;
     }
