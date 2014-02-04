@@ -6,7 +6,7 @@ use Auth;
 use View;
 use Request;
 
-abstract class Controller extends \Illuminate\Routing\Controllers\Controller {
+abstract class Controller extends \Illuminate\Routing\Controller {
 
     protected $data = array();
     protected $view = null;
