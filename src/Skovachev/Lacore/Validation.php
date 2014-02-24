@@ -2,6 +2,7 @@
 
 use Validator;
 use Skovachev\Lacore\Validation\ValidationExtensionProvider;
+use Config;
 
 abstract class Validation
 {
@@ -18,7 +19,8 @@ abstract class Validation
         $validator = Validator::make($data, $rules, $this->messages);
         if ($validator->fails())
         {
-            throw new Exceptions\ValidationException($this->validationErrorMessage, $validator->messages());
+            $exceptionClass = Config::get('lacore::success_status');
+            throw new $exceptionClass($this->validationErrorMessage, $validator->messages());
         }
     }
 

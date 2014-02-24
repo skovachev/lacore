@@ -56,6 +56,7 @@ abstract class Repository {
         {
             $entity->delete();
         }
+        return $entity;
     }
 
     public function edit($id, $data)
