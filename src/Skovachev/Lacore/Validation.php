@@ -19,7 +19,7 @@ abstract class Validation
         $validator = Validator::make($data, $rules, $this->messages);
         if ($validator->fails())
         {
-            $exceptionClass = Config::get('lacore::success_status');
+            $exceptionClass = Config::get('lacore::validation_exception_class');
             throw new $exceptionClass($this->validationErrorMessage, $validator->messages());
         }
     }
