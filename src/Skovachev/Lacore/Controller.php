@@ -65,6 +65,19 @@ abstract class Controller extends \Illuminate\Routing\Controller {
         }
     }
 
+    protected function makeView($view)
+    {
+        if (!is_null($this->module) && strpos($view, '::') === false)
+        {
+            $this->view = $this->module . '::' . $view;
+        }
+        else
+        {
+            $this->view = $view;
+        }
+        return View::make($this->view)->with($this->data);
+    }
+
     public function callAction($method, $parameters)
     {
         $this->setupLayout();
@@ -81,11 +94,7 @@ abstract class Controller extends \Illuminate\Routing\Controller {
 
         if (! is_null($this->view))
         {
-            if (!is_null($this->module))
-            {
-                $this->view = $this->module . '::' . $this->view;
-            }
-            $response->content = View::make($this->view)->with($this->data);
+            $response->content = $this->makeView($this->view);
             $response->with($this->data);
         }
 
